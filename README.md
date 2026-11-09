@@ -37,4 +37,12 @@ Requires `curl` and `python3`.
 
 ## What I learned
 
-(Fill in after running the lab.)
+1. **Everything starts with a token.** Each call needs a tenant access token that expires after 2 hours, so a script fetches a fresh one before it does anything else.
+2. **A bot only sees what it has been added to.** My first `chats` call returned an empty list because the bot wasn't in the group. After adding scopes or events, I also had to publish a new app version before they took effect.
+3. **The IDs matter.** I took the Base token and table ID from the Grid view URL. My first copy came from the Workflow page, so the table ID was wrong.
+4. **Data comes back in a different shape from how it goes in.** I wrote text fields as plain strings, but reading them back returned rich-text lists.
+5. **Blank records are a real edge case.** Clicking "+" in the Base created empty rows, which I could see in the data. A workflow should check required fields are filled before it acts.
+6. **Push is different from pull.** The app, the subscribed event and the bot in the group all had to be the same app. My first listener was on a second app the CLI created, so it heard nothing until I pointed it at the right one.
+7. **Not everything worked first time.** My no-code Base workflow was built and activated but showed no runs in the Activity Log, and I did not find the cause. The same flow worked through the API.
+
+The pattern matches a payments integration: authenticate, send a request, record the state, update it, receive an event. This lab does not cover retries or idempotency, which I would add next.
