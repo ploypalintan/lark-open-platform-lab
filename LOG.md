@@ -45,3 +45,8 @@ For each step, paste the redacted result and any error below.
 - search: read the table back (POST .../records/search). Text fields return as rich-text lists, not plain strings. Also found two empty records created by the grid UI.
 - update: changed a record status with PUT .../records/{record_id}. Only the Status field was sent; the other fields were left unchanged. Record ID: [redacted]
 - confusing: it was not clear what the CLI was listening to. Answer: one app, over an open connection, for the events subscribed in the console, only for chats where that app bot is present. The listener app, the subscribed app and the bot in the group must all be the same app.
+
+## Gotchas
+- Blank rows from the grid "+" button; read back as empty records through the API.
+- Trailing spaces in typed text values; the API-created row had none.
+- Workflow with "is not empty" conditions never showed a run. Cause not found.
